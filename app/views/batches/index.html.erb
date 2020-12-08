@@ -13,7 +13,7 @@
   <tbody>
     <% @batches.each do |batch| %>
       <tr>
-        <td><%= batch.csv %></td>
+        <td><%= truncate(batch.csv) %></td>
         <td><%= link_to 'Show', batch %></td>
         <td><%= link_to 'Edit', edit_batch_path(batch) %></td>
         <td><%= link_to 'Destroy', batch, method: :delete, data: { confirm: 'Are you sure?' } %></td>

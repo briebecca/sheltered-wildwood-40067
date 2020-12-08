@@ -25,6 +25,7 @@ class BatchesController < ApplicationController
   # POST /batches.json
   def create
     @batch = Batch.new(batch_params)
+    @batch.csv = params[:batch][:file].read if params[:batch][:file].present?
 
     respond_to do |format|
       if @batch.save
@@ -70,5 +71,9 @@ class BatchesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def batch_params
       params.require(:batch).permit(:csv)
+    end
+
+    def rows
+      CSV.foreach(params[:batch][:file].path, headers: true) do |row| puts row.inspect end
     end
 end
