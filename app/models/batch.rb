@@ -1,7 +1,13 @@
+require 'csv'
+
 class Batch < ApplicationRecord
   after_create do |batch|
-    CSV.new(batch.csv, headers: true).each do |row|
-      puts Contact.new(row.to_h)
+    Contact.transaction do
+      CSV.new(batch.csv, headers: true).each do |row|
+        c = Contact.create(row.to_h.slice("first_name", "last_name", "phone"))
+        Rails.logger.info c.errors.messages
+        raise unless c.valid?
+      end
     end
   end
 end

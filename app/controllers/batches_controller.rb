@@ -29,7 +29,7 @@ class BatchesController < ApplicationController
 
     respond_to do |format|
       if @batch.save
-        format.html { redirect_to @batch, notice: 'Batch was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Batch submitted.' }
         format.json { render :show, status: :created, location: @batch }
       else
         format.html { render :new }
@@ -70,6 +70,6 @@ class BatchesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def batch_params
-      params.require(:batch).permit(:csv, :file)
+      params.require(:batch).permit(:csv)
     end
 end
