@@ -1,8 +1,11 @@
 require "test_helper"
 
 class ContactsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
   setup do
-    @contact = contacts(:one)
+    user = User.create(email: 'a@example.com', password: 'Pa$$w0rd', password_confirmation: 'Pa$$w0rd')
+    sign_in(user)
+    @contact = Contact.create(first_name: 'A', last_name: 'B', phone: '111-111-1111')
   end
 
   test "should get index" do
