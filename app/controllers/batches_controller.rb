@@ -70,10 +70,6 @@ class BatchesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def batch_params
-      params.require(:batch).permit(:csv)
-    end
-
-    def rows
-      CSV.foreach(params[:batch][:file].path, headers: true) do |row| puts row.inspect end
+      params.require(:batch).permit(:csv, :file)
     end
 end
